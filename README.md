@@ -1,6 +1,6 @@
 # AppTmpl
 
-This is an app that contains boileplate HTML5 code to function as a starting point for future projects. It contains an html file, a css file, a javascript file, and this, a readme markdown file, all linked together and running.  As I learn more technologies, I will add branches that include those technologies which I can use as starting points.
+This is an app that contains boilerplate HTML5 code to function as a starting point for future projects. It contains an html file, a css file, a javascript file, and this, a readme markdown file, all linked together and running.  As I learn more technologies, I will add branches that include those technologies which I can use as starting points.
 
 In the text below, this markdown file will serve as a template for the readme of future projects
 
