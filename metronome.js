@@ -15,10 +15,13 @@ gainNode.gain.value = 0;
 
 oscillator.connect(gainNode);
 gainNode.connect(audioContext.destination);
-oscillator.start();
 
 // Metronome click event
-startMetronomeBtn.addEventListener('click', () => {
+startMetronomeBtn.addEventListener('click', async () => {
+  if (audioContext.state === 'suspended') {
+    await audioContext.resume();
+  }
+
   const bpm = bpmInput.value;
   if (metronomeInterval) {
     clearInterval(metronomeInterval);
@@ -30,6 +33,8 @@ startMetronomeBtn.addEventListener('click', () => {
     startMetronome(bpm);
   }
 });
+
+oscillator.start();
 
 // Start metronome
 function startMetronome(bpm) {
