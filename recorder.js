@@ -8,6 +8,8 @@ const stopPlayingBtn = document.getElementById('stop-playing');
 
 let mediaRecorder;
 let recordedBlobs;
+let playing = false;
+let metronomeTicks = 0;
 
 // Start recording event
 startRecordingBtn.addEventListener('click', async () => {
@@ -16,7 +18,6 @@ startRecordingBtn.addEventListener('click', async () => {
 
   const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
   video.srcObject = stream;
-  video.play();
 
   const options = { mimeType: 'video/webm;codecs=vp9,opus' };
   mediaRecorder = new MediaRecorder(stream, options);
@@ -28,6 +29,19 @@ startRecordingBtn.addEventListener('click', async () => {
     }
   };
 
+  document.addEventListener('metronomeTick', () => {
+    metronomeTicks++;
+    if (metronomeTicks === 8) {
+      stopRecordingBtn.click();
+    }
+  });
+
+  // Wait for the next metronome tick
+  const nextTick = new Promise(resolve => {
+    document.addEventListener('metronomeTick', resolve, { once: true });
+  });
+
+  await nextTick;
   mediaRecorder.start(10); // Collect 10ms of data
   console.log('MediaRecorder started', mediaRecorder);
 });
@@ -53,14 +67,28 @@ stopRecordingBtn.addEventListener('click', () => {
     }
 
     video.loop = true;
-    video.play();
     stopPlayingBtn.hidden = false;
+    stopPlayingBtn.textContent = 'Stop Playing';
+    playing = true;
   };
 });
 
 // Stop playing event
-stopPlayingBtn.addEventListener('click', () => {
-  video.pause();
-  video.loop = false;
-  stopPlayingBtn.hidden = true;
+stopPlayingBtn.addEventListener('click', async () => {
+  if (playing) {
+    video.pause();
+    video.loop = false;
+    stopPlayingBtn.textContent = 'Start Playing';
+  } else {
+    // Wait for the next metronome tick
+    const nextTick = new Promise(resolve => {
+      document.addEventListener('metronomeTick', resolve, { once: true });
+    });
+
+    await nextTick;
+    video.loop = true;
+    video.play();
+    stopPlayingBtn.textContent = 'Stop Playing';
+  }
+  playing = !playing;
 });
