@@ -14,3 +14,17 @@
     stroke: #979797;
     fill: #4B4B4B;
 }
+
+.white-key-text {
+    font-size: 1.3em;
+    pointer-events: none;
+    user-select: none;
+}
+
+.black-key-text {
+    font-size: 1em;
+    fill: #fff;
+    font-weight: 200;
+    pointer-events: none;
+    user-select: none;
+}
