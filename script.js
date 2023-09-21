@@ -69,7 +69,6 @@ const app = {
                 let naturalFlatNoteName = naturalNotesFlats[i];
                 
                 if (naturalSharpNoteName === naturalNote[0]) {
-                    
                     utils.setAttributes(blackKey, {
                         "x": blackKeyPositionX,
                         "data-sharp-name": `${ naturalSharpNoteName }#${ naturalNote[1]}`,
@@ -93,7 +92,6 @@ const app = {
 
                     flatNameText.classList.add("black-key-text");
                     sharpNameText.classList.add("black-key-text");
-
 
                     // Add double spacing between  D# and A#
                     if (naturalSharpNoteName === "D" || naturalSharpNoteName === "A") {
