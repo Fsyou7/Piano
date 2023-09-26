@@ -4,6 +4,12 @@
     border: 2px solid red;
 }
 
+#piano {
+    clip-path: inset(15px 0px 0px 0px);
+    margin-top: -15px;
+}
+
+
 .white-key {
     stroke: #555555;
     fill: #FFFFF7;
